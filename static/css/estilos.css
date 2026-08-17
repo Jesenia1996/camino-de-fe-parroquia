@@ -1,0 +1,244 @@
+/* ===== ESTILOS GENERALES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f0f4f8;
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+    color: #1f2937;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ===== ENCABEZADO PRINCIPAL ===== */
+.encabezado {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+    box-shadow: 0 4px 20px rgba(30, 58, 138, 0.35);
+    padding: 35px 0 !important;
+    border-bottom: 4px solid #1e40af;
+}
+
+.encabezado h1 {
+    font-size: 2.6rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.3);
+    margin-bottom: 8px;
+}
+
+.encabezado p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    font-weight: 400;
+}
+
+/* ===== TÍTULOS DE SECCIÓN ===== */
+h2 {
+    color: #1e3a8a;
+    font-weight: 650;
+    font-size: 1.7rem;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(90deg, #3b82f6, #60a5fa) 1;
+    display: inline-block;
+}
+
+h5.card-title {
+    color: #1e40af;
+    font-weight: 600;
+    font-size: 1.15rem;
+}
+
+/* ===== IMÁGENES ===== */
+.imagen-portada, .imagen-quienes {
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+.imagen-portada:hover, .imagen-quienes:hover {
+    transform: scale(1.015);
+    box-shadow: 0 14px 35px rgba(30, 64, 175, 0.18);
+}
+
+.portada {
+    text-align: center;
+}
+
+/* ===== SECCIONES ===== */
+section {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    margin-bottom: 35px !important;
+    border: 1px solid #e0e7ff;
+}
+
+main.container {
+    margin-top: 35px;
+    margin-bottom: 50px;
+}
+
+/* ===== TARJETAS ===== */
+.card {
+    border: none;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(59, 130, 246, 0.08);
+    transition: all 0.35s ease;
+    overflow: hidden;
+    border: 1px solid #dbeafe;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 30px rgba(37, 99, 235, 0.15);
+    border-color: #93c5fd;
+}
+
+.card-body {
+    padding: 22px;
+}
+
+/* ===== BOTONES ===== */
+.btn-primary {
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+    border: none;
+    border-radius: 30px;
+    padding: 10px 32px;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.35);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #1e40af, #2563eb);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(59, 130, 246, 0.45);
+}
+
+.btn-outline-primary, .btn-outline-danger {
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+/* ===== NAVEGACIÓN ===== */
+.navbar {
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-dark .navbar-brand {
+    font-weight: 600;
+    font-size: 1.15rem;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #e0e7ff;
+    font-weight: 500;
+    margin: 0 8px;
+    border-radius: 7px;
+    transition: all 0.25s ease;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #ffffff;
+    background-color: rgba(59, 130, 246, 0.35);
+}
+
+/* ===== FORMULARIO ===== */
+.form-label {
+    color: #374151;
+    font-weight: 500;
+}
+
+.form-control, .form-select {
+    border-radius: 9px;
+    border: 1px solid #bfdbfe;
+    padding: 11px 16px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
+}
+
+/* ===== TABLAS ===== */
+.table {
+    background-color: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.table-dark {
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+}
+
+.table th {
+    font-weight: 600;
+    border: none;
+}
+
+.table-striped tbody tr:hover {
+    background-color: #eff6ff;
+}
+
+/* ===== ALERTAS ===== */
+.alert {
+    border-radius: 11px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.alert-info {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    color: #1e3a8a;
+    font-weight: 500;
+}
+
+/* ===== ENLACES ===== */
+a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+/* ===== PIE DE PÁGINA ===== */
+footer {
+    background: linear-gradient(135deg, #111827, #1e3a8a) !important;
+    box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.25);
+    margin-top: 50px !important;
+    padding: 25px 0 !important;
+    font-size: 0.95rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .encabezado h1 {
+        font-size: 1.8rem;
+    }
+    h2 {
+        font-size: 1.45rem;
+    }
+    section {
+        padding: 20px;
+    }
+}

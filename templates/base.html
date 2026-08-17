@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        Camino de Fe en mi Parroquia
+        {% endblock %}
+    </title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- CSS propio -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/estilos.css') }}">
+
+</head>
+
+<body>
+
+    <!-- ENCABEZADO -->
+    <header class="text-center p-4">
+
+        <h1>CAMINO DE FE EN MI PARROQUIA</h1>
+
+        <p>Formación y preparación para servidores del altar</p>
+
+        <a href="#quienes-somos" class="btn btn-primary">
+            Conócenos
+        </a>
+
+    </header>
+
+
+    <!-- MENÚ -->
+    <nav class="text-center p-3">
+
+        <a href="{{ url_for('inicio') }}">Inicio</a>
+
+        <a href="{{ url_for('productos') }}">Productos</a>
+
+        <a href="{{ url_for('clientes') }}">Clientes</a>
+
+        <a href="{{ url_for('proveedores') }}">Proveedores</a>
+
+        <a href="{{ url_for('facturacion') }}">Facturación</a>
+
+    </nav>
+
+
+    <!-- CONTENIDO DE CADA PÁGINA -->
+
+    <main>
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+
+    <!-- PIE DE PÁGINA -->
+
+    <footer class="text-center p-4">
+
+        <p>Estudiante: Jesenia Montalván</p>
+
+        <p>Asignatura: Desarrollo de Aplicaciones Web</p>
+
+        <p>Año: 2026</p>
+
+    </footer>
+
+
+    <!-- Bootstrap JavaScript -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+    <!-- JavaScript propio -->
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>
