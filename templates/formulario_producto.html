@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}Registrar Material — Camino de Fe{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8 col-lg-6">
+
+            <div class="card shadow">
+
+                <div class="card-header text-center">
+                    <h2>Registrar Material o Recurso</h2>
+                    <p class="mb-0">
+                        Camino de Fe en mi Parroquia
+                    </p>
+                </div>
+
+                <div class="card-body">
+
+                    <form method="POST">
+
+                        {{ form.hidden_tag() }}
+
+                        <!-- NOMBRE -->
+
+                        <div class="mb-3">
+
+                            {{ form.nombre.label(class="form-label") }}
+
+                            {{ form.nombre(
+                                class="form-control",
+                                placeholder="Ejemplo: Manual del Monaguillo"
+                            ) }}
+
+                            {% for error in form.nombre.errors %}
+                                <div class="text-danger">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+
+                        </div>
+
+
+                        <!-- CATEGORÍA -->
+
+                        <div class="mb-3">
+
+                            {{ form.categoria.label(class="form-label") }}
+
+                            {{ form.categoria(
+                                class="form-control",
+                                placeholder="Ejemplo: Material Educativo"
+                            ) }}
+
+                            {% for error in form.categoria.errors %}
+                                <div class="text-danger">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+
+                        </div>
+
+
+                        <!-- CANTIDAD -->
+
+                        <div class="mb-3">
+
+                            {{ form.cantidad.label(class="form-label") }}
+
+                            {{ form.cantidad(
+                                class="form-control",
+                                placeholder="Ejemplo: 10"
+                            ) }}
+
+                            {% for error in form.cantidad.errors %}
+                                <div class="text-danger">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+
+                        </div>
+
+
+                        <!-- PRECIO -->
+
+                        <div class="mb-3">
+
+                            {{ form.precio.label(class="form-label") }}
+
+                            {{ form.precio(
+                                class="form-control",
+                                placeholder="Ejemplo: 5.00"
+                            ) }}
+
+                            {% for error in form.precio.errors %}
+                                <div class="text-danger">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+
+                        </div>
+
+
+                        <!-- BOTONES -->
+
+                        <div class="d-flex gap-2">
+
+                            {{ form.submit(
+                                class="btn btn-primary w-100"
+                            ) }}
+
+                            <a href="{{ url_for('listar_productos') }}"
+                               class="btn btn-secondary w-100">
+                                Cancelar
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

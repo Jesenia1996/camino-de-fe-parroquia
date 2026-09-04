@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Nueva Factura — Camino de Fe{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <h2 class="mb-4">Registrar Factura</h2>
+
+    <form method="POST">
+
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+            {{ form.numero_factura.label(class="form-label") }}
+            {{ form.numero_factura(class="form-control") }}
+
+            {% for error in form.numero_factura.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.fecha_emision.label(class="form-label") }}
+            {{ form.fecha_emision(class="form-control", type="date") }}
+
+            {% for error in form.fecha_emision.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.cliente.label(class="form-label") }}
+            {{ form.cliente(class="form-control") }}
+
+            {% for error in form.cliente.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.total.label(class="form-label") }}
+            {{ form.total(class="form-control", step="0.01") }}
+
+            {% for error in form.total.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        {{ form.submit(class="btn btn-success") }}
+
+        <a href="{{ url_for('listar_facturacion') }}"
+           class="btn btn-secondary">
+            Cancelar
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

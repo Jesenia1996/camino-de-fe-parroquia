@@ -1,42 +1,96 @@
 {% extends "base.html" %}
+
 {% block title %}Materiales y Recursos — Camino de Fe{% endblock %}
+
 {% block content %}
-<h2>Materiales y Recursos de Formación</h2>
-<p>Lista de materiales, libros, vestimenta y recursos disponibles para los monaguillos.</p>
-<table class="table table-striped table-bordered">
-    <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Recurso</th>
-            <th>Categoría</th>
-            <th>Disponibilidad</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>Manual del Monaguillo</td>
-            <td>Material Educativo</td>
-            <td>✅ Disponible</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Alba y Sobrecapa</td>
-            <td>Vestimenta</td>
-            <td>✅ Disponible</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Cirio y Vela</td>
-            <td>Utensilios Litúrgicos</td>
-            <td>✅ Disponible</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Guía de Celebraciones</td>
-            <td>Material Educativo</td>
-            <td>📝 En preparación</td>
-        </tr>
-    </tbody>
-</table>
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2>Materiales y Recursos de Formación</h2>
+            <p>
+                Lista de materiales, libros, vestimenta y recursos
+                disponibles para los monaguillos.
+            </p>
+        </div>
+
+        <a href="{{ url_for('nuevo_producto') }}" class="btn btn-primary">
+            ➕ Agregar recurso
+        </a>
+    </div>
+
+
+    <!-- MENSAJES FLASH -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert">
+                    </button>
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- TABLA DE RECURSOS -->
+
+    <div class="table-responsive">
+
+        <table class="table table-striped table-bordered">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>ID</th>
+                    <th>Recurso</th>
+                    <th>Categoría</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                </tr>
+
+            </thead>
+
+            <tbody>{% for producto in productos %}<tr>
+
+                    <td>{{ producto['id'] }}</td>
+                    <td>{{ producto['nombre'] }}</td>
+                    <td>{{ producto['categoria'] }}</td>
+                    <td>{{ producto['cantidad'] }}</td>
+                    <td>${{ "%.2f"|format(producto['precio']) }}</td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+
+                    <td colspan="5" class="text-center">
+                        No existen recursos registrados todavía.
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
 {% endblock %}
