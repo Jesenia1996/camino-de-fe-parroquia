@@ -24,44 +24,29 @@
          ========================================== -->
 
     {% include "components/navbar.html" %}
-
-
-    <!-- ==========================================
-         CONTENIDO DE CADA PÁGINA
-         ========================================== -->
-
+    
     <main>
 
         {% block contenido %}
         {% endblock %}
-
+    
     </main>
-
-
-    <!-- ==========================================
-         PIE DE PÁGINA
-         ========================================== -->
-
+    
+    
     <footer class="text-center p-4 mt-5">
-
+    
         <p>Estudiante: Jesenia Montalván</p>
-
+    
         <p>Asignatura: Desarrollo de Aplicaciones Web</p>
-
+    
         <p>Año: 2026</p>
-
+    
     </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
-
-    <!-- Bootstrap JavaScript -->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-
-
-    <!-- JavaScript propio -->
-
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 
 </html>

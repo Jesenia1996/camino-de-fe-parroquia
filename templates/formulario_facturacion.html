@@ -1,62 +1,72 @@
 {% extends "base.html" %}
 
-{% block title %}Nueva Factura — Camino de Fe{% endblock %}
+{% block title %}Nueva Factura - Camino de Fe{% endblock %}
 
-{% block content %}
+{% block contenido %}
 
-<div class="container py-4">
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0" style="border-radius: 20px; overflow: hidden;">
+                <div class="card-header text-white" style="background: linear-gradient(135deg, #0369a1, #0ea5e9); padding: 25px;">
+                    <h3 class="mb-0">🧾 Nueva Factura</h3>
+                    <p class="mb-0 mt-2" style="opacity: 0.9;">Complete los datos de la factura</p>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                {{ form.numero_factura.label(class="form-label fw-semibold") }}
+                                {{ form.numero_factura(class="form-control" + (" is-invalid" if form.numero_factura.errors else ""), style="border-radius: 10px; padding: 12px 18px;") }}
+                                {% for error in form.numero_factura.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6 mb-4">
+                            {{ form.fecha_emision.label(class="form-label fw-semibold") }}
+                            <input type="date" 
+                                   name="fecha_emision" 
+                                   class="form-control {{ 'is-invalid' if form.fecha_emision.errors else '' }}" 
+                                   style="border-radius: 10px; padding: 12px 18px;"
+                                   value="{{ form.fecha_emision.data.strftime('%Y-%m-%d') if form.fecha_emision.data else '' }}"
+                                   required>
+                            {% for error in form.fecha_emision.errors %}
+                                  <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        </div>
 
-    <h2 class="mb-4">Registrar Factura</h2>
+                        <div class="mb-4">
+                            {{ form.cliente.label(class="form-label fw-semibold") }}
+                            {{ form.cliente(class="form-control" + (" is-invalid" if form.cliente.errors else ""), style="border-radius: 10px; padding: 12px 18px;") }}
+                            {% for error in form.cliente.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
 
-    <form method="POST">
+                        <div class="mb-4">
+                            {{ form.total.label(class="form-label fw-semibold") }}
+                            {{ form.total(class="form-control" + (" is-invalid" if form.total.errors else ""), style="border-radius: 10px; padding: 12px 18px;") }}
+                            {% for error in form.total.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
 
-        {{ form.hidden_tag() }}
-
-        <div class="mb-3">
-            {{ form.numero_factura.label(class="form-label") }}
-            {{ form.numero_factura(class="form-control") }}
-
-            {% for error in form.numero_factura.errors %}
-                <div class="text-danger">{{ error }}</div>
-            {% endfor %}
+                        <div class="d-flex gap-3">
+                            <button type="submit" class="btn btn-primary flex-grow-1" style="background: linear-gradient(135deg, #0369a1, #0ea5e9); border: none; border-radius: 50px; padding: 14px; font-weight: 600; font-size: 1.05rem; box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);">
+                                💾 Guardar Factura
+                            </button>
+                            <a href="{{ url_for('facturacion') }}" class="btn btn-secondary flex-grow-1" style="border-radius: 50px; padding: 14px; font-weight: 600;">
+                                ← Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div class="mb-3">
-            {{ form.fecha_emision.label(class="form-label") }}
-            {{ form.fecha_emision(class="form-control", type="date") }}
-
-            {% for error in form.fecha_emision.errors %}
-                <div class="text-danger">{{ error }}</div>
-            {% endfor %}
-        </div>
-
-        <div class="mb-3">
-            {{ form.cliente.label(class="form-label") }}
-            {{ form.cliente(class="form-control") }}
-
-            {% for error in form.cliente.errors %}
-                <div class="text-danger">{{ error }}</div>
-            {% endfor %}
-        </div>
-
-        <div class="mb-3">
-            {{ form.total.label(class="form-label") }}
-            {{ form.total(class="form-control", step="0.01") }}
-
-            {% for error in form.total.errors %}
-                <div class="text-danger">{{ error }}</div>
-            {% endfor %}
-        </div>
-
-        {{ form.submit(class="btn btn-success") }}
-
-        <a href="{{ url_for('listar_facturacion') }}"
-           class="btn btn-secondary">
-            Cancelar
-        </a>
-
-    </form>
-
+    </div>
 </div>
 
 {% endblock %}

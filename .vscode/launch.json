@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- Hero Section con gradiente -->
+<div class="container-fluid p-0">
+    <div class="bg-gradient" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <div class="container py-5">
+            <div class="row align-items-center py-5">
+                <div class="col-lg-6">
+                    <h1 class="display-3 fw-bold mb-4">Caminos de Fe</h1>
+                    <p class="lead mb-4">Sistema de Gestión Integral - Tu aliado tecnológico para administrar tu negocio de manera eficiente, organizada y profesional.</p>
+                    <div class="d-flex gap-3">
+                        <a href="{{ url_for('productos') }}" class="btn btn-light btn-lg px-4">
+                            <i class="bi bi-box-seam me-2"></i>Explorar Productos
+                        </a>
+                        <a href="#modulos" class="btn btn-outline-light btn-lg px-4">
+                            Conocer Módulos
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center d-none d-lg-block">
+                    <div class="p-5">
+                        <i class="bi bi-building-check" style="font-size: 15rem; opacity: 0.3;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Estadísticas rápidas -->
+<div class="container mt-n5 position-relative" style="z-index: 10;">
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-lg text-center">
+                <div class="card-body py-4">
+                    <i class="bi bi-box-seam text-primary" style="font-size: 2.5rem;"></i>
+                    <h3 class="mt-3 mb-1">Productos</h3>
+                    <p class="text-muted mb-0">Gestión de inventario</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-lg text-center">
+                <div class="card-body py-4">
+                    <i class="bi bi-people text-success" style="font-size: 2.5rem;"></i>
+                    <h3 class="mt-3 mb-1">Clientes</h3>
+                    <p class="text-muted mb-0">Base de datos activa</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-lg text-center">
+                <div class="card-body py-4">
+                    <i class="bi bi-truck text-warning" style="font-size: 2.5rem;"></i>
+                    <h3 class="mt-3 mb-1">Proveedores</h3>
+                    <p class="text-muted mb-0">Relaciones comerciales</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-lg text-center">
+                <div class="card-body py-4">
+                    <i class="bi bi-receipt text-info" style="font-size: 2.5rem;"></i>
+                    <h3 class="mt-3 mb-1">Facturación</h3>
+                    <p class="text-muted mb-0">Control de ventas</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Módulos del sistema -->
+<div class="container py-5" id="modulos">
+    <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold">Módulos del Sistema</h2>
+        <p class="lead text-muted">Herramientas completas para la gestión de tu negocio</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Productos -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 border-0 shadow-sm hover-effect">
+                <div class="card-body p-4">
+                    <div class="icon-circle bg-primary bg-opacity-10 text-primary mb-3">
+                        <i class="bi bi-box-seam" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <h4 class="card-title fw-bold">Productos</h4>
+                    <p class="card-text text-muted">Administra tu inventario completo. Controla stock, precios, categorías y descripciones de todos tus productos en un solo lugar.</p>
+                    <ul class="list-unstyled text-muted small">
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Control de inventario</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Gestión de categorías</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Alertas de stock bajo</li>
+                    </ul>
+                    <a href="{{ url_for('productos') }}" class="btn btn-primary w-100 mt-3">
+                        Gestionar Productos <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clientes -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 border-0 shadow-sm hover-effect">
+                <div class="card-body p-4">
+                    <div class="icon-circle bg-success bg-opacity-10 text-success mb-3">
+                        <i class="bi bi-people" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <h4 class="card-title fw-bold">Clientes</h4>
+                    <p class="card-text text-muted">Mantén un registro detallado de tus clientes. Información de contacto, historial de compras y preferencias.</p>
+                    <ul class="list-unstyled text-muted small">
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Base de datos de clientes</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Información de contacto</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Historial de compras</li>
+                    </ul>
+                    <a href="{{ url_for('clientes') }}" class="btn btn-success w-100 mt-3">
+                        Gestionar Clientes <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Proveedores -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 border-0 shadow-sm hover-effect">
+                <div class="card-body p-4">
+                    <div class="icon-circle bg-warning bg-opacity-10 text-warning mb-3">
+                        <i class="bi bi-truck" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <h4 class="card-title fw-bold">Proveedores</h4>
+                    <p class="card-text text-muted">Gestiona tus relaciones con proveedores. Controla contactos, productos suministrados y términos comerciales.</p>
+                    <ul class="list-unstyled text-muted small">
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Registro de proveedores</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Productos por proveedor</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Información de contacto</li>
+                    </ul>
+                    <a href="{{ url_for('proveedores') }}" class="btn btn-warning w-100 mt-3 text-dark">
+                        Gestionar Proveedores <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Facturación -->
+        <div class="col-lg-6 col-md-6">
+            <div class="card h-100 border-0 shadow-sm hover-effect">
+                <div class="card-body p-4">
+                    <div class="icon-circle bg-info bg-opacity-10 text-info mb-3">
+                        <i class="bi bi-receipt" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <h4 class="card-title fw-bold">Facturación</h4>
+                    <p class="card-text text-muted">Sistema completo de facturación. Genera facturas, controla ventas y mantén un registro financiero ordenado de todas tus transacciones.</p>
+                    <ul class="list-unstyled text-muted small">
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Generación de facturas</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Control de ventas</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Reportes financieros</li>
+                    </ul>
+                    <a href="{{ url_for('facturacion') }}" class="btn btn-info w-100 mt-3 text-white">
+                        Gestionar Facturación <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reportes -->
+        <div class="col-lg-6 col-md-6">
+            <div class="card h-100 border-0 shadow-sm hover-effect">
+                <div class="card-body p-4">
+                    <div class="icon-circle bg-secondary bg-opacity-10 text-secondary mb-3">
+                        <i class="bi bi-graph-up-arrow" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <h4 class="card-title fw-bold">Reportes y Análisis</h4>
+                    <p class="card-text text-muted">Obtén información valiosa de tu negocio. Visualiza estadísticas, tendencias y toma mejores decisiones basadas en datos.</p>
+                    <ul class="list-unstyled text-muted small">
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Estadísticas de ventas</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Productos más vendidos</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Análisis de inventario</li>
+                    </ul>
+                    <button class="btn btn-secondary w-100 mt-3" disabled>
+                        Próximamente <i class="bi bi-clock ms-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Características -->
+<div class="bg-light py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold">¿Por qué elegir Caminos de Fe?</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4 text-center">
+                <div class="p-4">
+                    <i class="bi bi-shield-check text-primary" style="font-size: 3rem;"></i>
+                    <h5 class="mt-3">Seguro y Confiable</h5>
+                    <p class="text-muted">Tus datos están protegidos con las mejores prácticas de seguridad.</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="p-4">
+                    <i class="bi bi-lightning-charge text-warning" style="font-size: 3rem;"></i>
+                    <h5 class="mt-3">Rápido y Eficiente</h5>
+                    <p class="text-muted">Interfaz optimizada para que realices tus tareas en segundos.</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="p-4">
+                    <i class="bi bi-phone text-success" style="font-size: 3rem;"></i>
+                    <h5 class="mt-3">Responsive</h5>
+                    <p class="text-muted">Accede desde cualquier dispositivo: computadora, tablet o móvil.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Call to Action -->
+<div class="container py-5">
+    <div class="card border-0 shadow-lg bg-primary text-white overflow-hidden">
+        <div class="card-body p-5 text-center position-relative">
+            <div class="position-relative z-1">
+                <h2 class="display-6 fw-bold mb-3">¿Listo para comenzar?</h2>
+                <p class="lead mb-4">Empieza a gestionar tu negocio de manera profesional hoy mismo.</p>
+                <a href="{{ url_for('productos') }}" class="btn btn-light btn-lg px-5">
+                    <i class="bi bi-rocket-takeoff me-2"></i>Comenzar Ahora
+                </a>
+            </div>
+            <!-- Elementos decorativos -->
+            <div class="position-absolute top-0 start-0 translate-middle opacity-25">
+                <i class="bi bi-circle" style="font-size: 15rem;"></i>
+            </div>
+            <div class="position-absolute bottom-0 end-0 translate-middle opacity-25">
+                <i class="bi bi-circle" style="font-size: 20rem;"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.hover-effect {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-effect:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+}
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+</style>
+{% endblock %}

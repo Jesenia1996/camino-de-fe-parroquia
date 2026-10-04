@@ -73,7 +73,6 @@
                             {% for error in form.direccion.errors %}
                                 <div class="invalid-feedback">{{ error }}</div>
                             {% endfor %}
-
                         </div>
 
                         <div class="d-flex gap-3">
@@ -83,19 +82,12 @@
                             <a href="{{ url_for('proveedores') }}" class="btn btn-secondary flex-grow-1" style="border-radius: 50px; padding: 14px; font-weight: 600;">
                                 ← Cancelar
                             </a>
-
                         </div>
-
                     </form>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
 
 {% endblock %}
