@@ -93,19 +93,24 @@
 
                     <td>
 
-                        <form method="POST"
-                              action="{{ url_for('eliminar_factura', id=factura['id']) }}"
-                              style="display:inline;"
-                              onsubmit="return confirm('¿Estás seguro de eliminar esta factura?');">
+    <a href="{{ url_for('editar_factura', id=factura['id']) }}"
+       class="btn btn-sm btn-warning">
+        Editar
+    </a>
 
-                            <button type="submit"
-                                    class="btn btn-sm btn-danger">
-                                Eliminar
-                            </button>
+    <form method="POST"
+          action="{{ url_for('eliminar_factura', id=factura['id']) }}"
+          style="display:inline;"
+          onsubmit="return confirm('¿Estás seguro de eliminar esta factura?');">
 
-                        </form>
+        <button type="submit"
+                class="btn btn-sm btn-danger">
+            Eliminar
+        </button>
 
-                    </td>
+    </form>
+
+</td>
 
                 </tr>
 

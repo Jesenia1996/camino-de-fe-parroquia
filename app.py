@@ -1230,7 +1230,134 @@ def nueva_factura():
 
         conexion.close()
 
+# ----------------------------------------------------------
+# EDITAR FACTURA
+# ----------------------------------------------------------
 
+@app.route("/facturacion/editar/<int:id>", methods=["GET", "POST"])
+@login_required
+def editar_factura(id):
+
+    conexion = obtener_conexion()
+
+    if conexion is None:
+        flash("No se pudo conectar con PostgreSQL.", "danger")
+        return redirect(url_for("facturacion"))
+
+    try:
+
+        # --------------------------------------------------
+        # BUSCAR FACTURA
+        # --------------------------------------------------
+
+        with conexion.cursor() as cursor:
+
+            cursor.execute("""
+                SELECT id, cliente_id, total
+                FROM facturacion
+                WHERE id = %s
+            """, (id,))
+
+            factura = cursor.fetchone()
+
+        if factura is None:
+
+            flash("La factura no existe.", "warning")
+
+            return redirect(url_for("facturacion"))
+
+
+        # --------------------------------------------------
+        # CREAR FORMULARIO
+        # --------------------------------------------------
+
+        form = FacturacionForm()
+
+
+        # --------------------------------------------------
+        # CARGAR CLIENTES
+        # --------------------------------------------------
+
+        with conexion.cursor() as cursor:
+
+            cursor.execute("""
+                SELECT id, nombre
+                FROM clientes
+                ORDER BY nombre
+            """)
+
+            clientes = cursor.fetchall()
+
+
+        form.cliente_id.choices = [
+            (cliente["id"], cliente["nombre"])
+            for cliente in clientes
+        ]
+
+
+        # --------------------------------------------------
+        # ACTUALIZAR FACTURA
+        # --------------------------------------------------
+
+        if form.validate_on_submit():
+
+            with conexion.cursor() as cursor:
+
+                cursor.execute("""
+                    UPDATE facturacion
+                    SET cliente_id = %s,
+                        total = %s
+                    WHERE id = %s
+                """, (
+                    form.cliente_id.data,
+                    form.total.data,
+                    id
+                ))
+
+            conexion.commit()
+
+            flash(
+                "Factura actualizada correctamente.",
+                "success"
+            )
+
+            return redirect(url_for("facturacion"))
+
+
+        # --------------------------------------------------
+        # CARGAR DATOS ACTUALES
+        # --------------------------------------------------
+
+        if not form.is_submitted():
+
+            form.cliente_id.data = factura["cliente_id"]
+            form.total.data = factura["total"]
+
+
+        return render_template(
+            "formulario_facturacion.html",
+            form=form
+        )
+
+
+    except Exception as e:
+
+        conexion.rollback()
+
+        print("Error al editar factura:", e)
+
+        flash(
+            "No se pudo actualizar la factura.",
+            "danger"
+        )
+
+        return redirect(url_for("facturacion"))
+
+
+    finally:
+
+        conexion.close()
+        
 # ----------------------------------------------------------
 # ELIMINAR FACTURA
 # ----------------------------------------------------------
