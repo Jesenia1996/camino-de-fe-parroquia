@@ -5,70 +5,134 @@
 {% block contenido %}
 
 <div class="container py-5">
+
     <div class="row justify-content-center">
+
         <div class="col-lg-8">
-            <div class="card shadow-lg border-0" style="border-radius: 20px; overflow: hidden;">
-                <div class="card-header text-white" style="background: linear-gradient(135deg, #047857, #10b981); padding: 25px;">
-                    <h3 class="mb-0">👥 Nuevo Cliente</h3>
-                    <p class="mb-0 mt-2" style="opacity: 0.9;">Complete los datos del cliente</p>
+
+            <div class="card shadow-lg border-0"
+                 style="border-radius: 20px; overflow: hidden;">
+
+                <div class="card-header text-white"
+                     style="background: linear-gradient(135deg, #047857, #10b981); padding: 25px;">
+
+                    <h3 class="mb-0">Nuevo Cliente</h3>
+
+                    <p class="mb-0 mt-2">
+                        Complete los datos del cliente
+                    </p>
+
                 </div>
+
                 <div class="card-body p-4">
+
                     <form method="POST" novalidate>
+
                         {{ form.hidden_tag() }}
-                        
+
+                        <!-- NOMBRE -->
                         <div class="mb-4">
+
                             {{ form.nombre.label(class="form-label fw-semibold") }}
-                            {{ form.nombre(class="form-control" + (" is-invalid" if form.nombre.errors else ""), style="border-radius: 10px; padding: 12px 18px;") }}
+
+                            {{ form.nombre(
+                                class="form-control" +
+                                (" is-invalid" if form.nombre.errors else "")
+                            ) }}
+
                             {% for error in form.nombre.errors %}
-                                <div class="invalid-feedback">{{ error }}</div>
+                                <div class="invalid-feedback">
+                                    {{ error }}
+                                </div>
                             {% endfor %}
+
                         </div>
 
+                        <!-- CÉDULA -->
                         <div class="mb-4">
-                            {{ form.documento.label(class="form-label fw-semibold") }}
-                            {{ form.documento(class="form-control" + (" is-invalid" if form.documento.errors else ""), style="border-radius: 10px; padding: 12px 18px;") }}
-                            {% for error in form.documento.errors %}
-                                <div class="invalid-feedback">{{ error }}</div>
+
+                            {{ form.cedula.label(class="form-label fw-semibold") }}
+
+                            {{ form.cedula(
+                                class="form-control" +
+                                (" is-invalid" if form.cedula.errors else "")
+                            ) }}
+
+                            {% for error in form.cedula.errors %}
+                                <div class="invalid-feedback">
+                                    {{ error }}
+                                </div>
                             {% endfor %}
+
                         </div>
 
+                        <!-- TELÉFONO -->
                         <div class="mb-4">
-                            {{ form.correo.label(class="form-label fw-semibold") }}
-                            {{ form.correo(class="form-control" + (" is-invalid" if form.correo.errors else ""), style="border-radius: 10px; padding: 12px 18px;") }}
-                            {% for error in form.correo.errors %}
-                                <div class="invalid-feedback">{{ error }}</div>
-                            {% endfor %}
-                        </div>
 
-                        <div class="mb-4">
                             {{ form.telefono.label(class="form-label fw-semibold") }}
-                            {{ form.telefono(class="form-control" + (" is-invalid" if form.telefono.errors else ""), style="border-radius: 10px; padding: 12px 18px;") }}
+
+                            {{ form.telefono(
+                                class="form-control" +
+                                (" is-invalid" if form.telefono.errors else "")
+                            ) }}
+
                             {% for error in form.telefono.errors %}
-                                <div class="invalid-feedback">{{ error }}</div>
+                                <div class="invalid-feedback">
+                                    {{ error }}
+                                </div>
                             {% endfor %}
+
                         </div>
 
+                        <!-- CORREO -->
                         <div class="mb-4">
-                            {{ form.direccion.label(class="form-label fw-semibold") }}
-                            {{ form.direccion(class="form-control" + (" is-invalid" if form.direccion.errors else ""), style="border-radius: 10px; padding: 12px 18px;") }}
-                            {% for error in form.direccion.errors %}
-                                <div class="invalid-feedback">{{ error }}</div>
+
+                            {{ form.correo.label(class="form-label fw-semibold") }}
+
+                            {{ form.correo(
+                                class="form-control" +
+                                (" is-invalid" if form.correo.errors else "")
+                            ) }}
+
+                            {% for error in form.correo.errors %}
+                                <div class="invalid-feedback">
+                                    {{ error }}
+                                </div>
                             {% endfor %}
+
                         </div>
 
+                        <!-- BOTONES -->
                         <div class="d-flex gap-3">
-                            <button type="submit" class="btn btn-primary flex-grow-1" style="background: linear-gradient(135deg, #047857, #10b981); border: none; border-radius: 50px; padding: 14px; font-weight: 600; font-size: 1.05rem; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);">
-                                 Guardar Cliente
+
+                            <button type="submit"
+                                    class="btn btn-success flex-grow-1"
+                                    style="border-radius: 50px; padding: 14px;">
+
+                                Guardar Cliente
+
                             </button>
-                            <a href="{{ url_for('clientes') }}" class="btn btn-secondary flex-grow-1" style="border-radius: 50px; padding: 14px; font-weight: 600;">
-                                ← Cancelar
+
+                            <a href="{{ url_for('clientes') }}"
+                               class="btn btn-secondary flex-grow-1"
+                               style="border-radius: 50px; padding: 14px;">
+
+                                Cancelar
+
                             </a>
+
                         </div>
+
                     </form>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
 
 {% endblock %}

@@ -1,13 +1,32 @@
+# forms/proveedor_form.py
+
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Length, Email
 
+
 class ProveedorForm(FlaskForm):
-    nombre_empresa = StringField('Nombre de la Empresa', validators=[DataRequired(), Length(max=100)])
-    ruc = StringField('RUC', validators=[DataRequired(), Length(max=20)])
-    contacto = StringField('Persona de Contacto', validators=[DataRequired(), Length(max=100)])
-    telefono = StringField('Teléfono', validators=[DataRequired(), Length(max=20)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    pais = StringField('País', validators=[DataRequired(), Length(max=50)])
-    direccion = StringField('Dirección', validators=[DataRequired(), Length(max=200)])
+
+    nombre = StringField(
+        'Nombre',
+        validators=[
+            DataRequired(message="El nombre es obligatorio"),
+            Length(max=100)
+        ]
+    )
+
+    telefono = StringField(
+        'Teléfono',
+        validators=[
+            Length(max=20)
+        ]
+    )
+
+    correo = StringField(
+        'Correo',
+        validators=[
+            Email(message="Ingrese un correo válido")
+        ]
+    )
+
     submit = SubmitField('Guardar Proveedor')

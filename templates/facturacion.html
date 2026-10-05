@@ -5,72 +5,132 @@
 {% block contenido %}
 
 <div class="container py-5">
+
     <div class="d-flex justify-content-between align-items-center mb-4">
+
         <div>
-            <h2 style="color: #1e3a8a; font-weight: 700;">🧾 Facturación</h2>
-            <p class="text-muted">Gestión de facturas y control de ventas</p>
+            <h2>Facturación</h2>
+
+            <p>
+                Registro de facturas y pagos correspondientes
+                a los recursos y materiales de formación.
+            </p>
         </div>
-        <a href="{{ url_for('nueva_facturacion') }}" class="btn btn-primary" style="background: linear-gradient(135deg, #0369a1, #0ea5e9); border: none; border-radius: 50px; padding: 12px 30px; font-weight: 600; box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);">
-             Nueva Factura
+
+        <a href="{{ url_for('nueva_factura') }}"
+           class="btn btn-primary">
+            + Nueva Factura
         </a>
+
     </div>
 
+
+    <!-- MENSAJES -->
     {% with messages = get_flashed_messages(with_categories=true) %}
+
         {% if messages %}
+
             {% for category, message in messages %}
-                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+
+                <div class="alert alert-{{ category }} alert-dismissible fade show"
+                     role="alert">
+
                     {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert">
+                    </button>
+
                 </div>
+
             {% endfor %}
+
         {% endif %}
+
     {% endwith %}
 
-    <div class="card shadow-lg border-0" style="border-radius: 20px; overflow: hidden;">
-        <div class="card-body p-4">
-            {% if facturas %}
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead style="background: linear-gradient(135deg, #0369a1, #0ea5e9); color: white;">
-                        <tr>
-                            <th style="padding: 18px;"># Factura</th>
-                            <th style="padding: 18px;">Fecha</th>
-                            <th style="padding: 18px;">Cliente</th>
-                            <th style="padding: 18px;">Total</th>
-                            <th style="padding: 18px;">Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for factura in facturas %}
-                        <tr>
-                            <td style="padding: 15px;"><strong>{{ factura.numero_factura }}</strong></td>
-                            <td style="padding: 15px;">{{ factura.fecha_emision }}</td>
-                            <td style="padding: 15px;">{{ factura.cliente }}</td>
-                            <td style="padding: 15px;">
-                                <span class="badge" style="background: linear-gradient(135deg, #10b981, #059669); font-size: 1rem; padding: 8px 16px;">
-                                    ${{ "%.2f"|format(factura.total) }}
-                                </span>
-                            </td>
-                            <td style="padding: 15px;">
-                                <span class="badge bg-success">Emitida</span>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            {% else %}
-            <div class="text-center py-5">
-                <div style="font-size: 5rem; opacity: 0.3;">🧾</div>
-                <h4 class="text-muted mt-3">No hay facturas registradas</h4>
-                <p class="text-muted">Comienza creando tu primera factura</p>
-                <a href="{{ url_for('nueva_facturacion') }}" class="btn btn-primary mt-3" style="background: linear-gradient(135deg, #0369a1, #0ea5e9); border: none; border-radius: 50px; padding: 12px 30px;">
-                    Crear Primera Factura
-                </a>
-            </div>
-            {% endif %}
-        </div>
+
+    <!-- TABLA DE FACTURAS -->
+    <div class="table-responsive">
+
+        <table class="table table-striped table-bordered align-middle">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th>Acciones</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for factura in facturas %}
+
+                <tr>
+
+                    <td>
+                        {{ factura['id'] }}
+                    </td>
+
+                    <td>
+                        {{ factura['cliente_nombre'] or 'Cliente no encontrado' }}
+                    </td>
+
+                    <td>
+                        {{ factura['fecha'] }}
+                    </td>
+
+                    <td>
+                        ${{ "%.2f"|format(factura['total']) }}
+                    </td>
+
+                    <td>
+
+                        <form method="POST"
+                              action="{{ url_for('eliminar_factura', id=factura['id']) }}"
+                              style="display:inline;"
+                              onsubmit="return confirm('¿Estás seguro de eliminar esta factura?');">
+
+                            <button type="submit"
+                                    class="btn btn-sm btn-danger">
+                                Eliminar
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+
+                {% else %}
+
+                <tr>
+
+                    <td colspan="5"
+                        class="text-center py-4">
+
+                        No existen facturas registradas todavía.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
     </div>
+
 </div>
 
 {% endblock %}

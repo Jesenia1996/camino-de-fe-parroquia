@@ -5,89 +5,112 @@
 {% block contenido %}
 
 <div class="container py-5">
+
     <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card shadow-lg border-0" style="border-radius: 20px; overflow: hidden;">
-                <div class="card-header text-white" style="background: linear-gradient(135deg, #b45309, #f59e0b); padding: 25px;">
-                    <h3 class="mb-0">🏭 Nuevo Proveedor</h3>
-                    <p class="mb-0 mt-2" style="opacity: 0.9;">Complete los datos del proveedor</p>
+
+        <div class="col-md-8">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">
+                        Registrar Proveedor
+                    </h3>
                 </div>
-                <div class="card-body p-4">
-                    <form method="POST" novalidate>
+
+                <div class="card-body">
+
+                    <form method="POST">
+
                         {{ form.hidden_tag() }}
-                        
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                {{ form.nombre_empresa.label(class="form-label fw-semibold") }}
-                                {{ form.nombre_empresa(class="form-control" + (" is-invalid" if form.nombre_empresa.errors else ""), style="border-radius: 10px; padding: 12px 18px;") }}
-                                {% for error in form.nombre_empresa.errors %}
-                                    <div class="invalid-feedback">{{ error }}</div>
-                                {% endfor %}
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                {{ form.ruc.label(class="form-label fw-semibold") }}
-                                {{ form.ruc(class="form-control" + (" is-invalid" if form.ruc.errors else ""), style="border-radius: 10px; padding: 12px 18px;") }}
-                                {% for error in form.ruc.errors %}
-                                    <div class="invalid-feedback">{{ error }}</div>
-                                {% endfor %}
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                {{ form.contacto.label(class="form-label fw-semibold") }}
-                                {{ form.contacto(class="form-control" + (" is-invalid" if form.contacto.errors else ""), style="border-radius: 10px; padding: 12px 18px;") }}
-                                {% for error in form.contacto.errors %}
-                                    <div class="invalid-feedback">{{ error }}</div>
-                                {% endfor %}
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                {{ form.telefono.label(class="form-label fw-semibold") }}
-                                {{ form.telefono(class="form-control" + (" is-invalid" if form.telefono.errors else ""), style="border-radius: 10px; padding: 12px 18px;") }}
-                                {% for error in form.telefono.errors %}
-                                    <div class="invalid-feedback">{{ error }}</div>
-                                {% endfor %}
-                            </div>
-                        </div>
+                        <!-- NOMBRE -->
+                        <div class="mb-3">
 
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                {{ form.email.label(class="form-label fw-semibold") }}
-                                {{ form.email(class="form-control" + (" is-invalid" if form.email.errors else ""), style="border-radius: 10px; padding: 12px 18px;") }}
-                                {% for error in form.email.errors %}
-                                    <div class="invalid-feedback">{{ error }}</div>
-                                {% endfor %}
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                {{ form.pais.label(class="form-label fw-semibold") }}
-                                {{ form.pais(class="form-control" + (" is-invalid" if form.pais.errors else ""), style="border-radius: 10px; padding: 12px 18px;") }}
-                                {% for error in form.pais.errors %}
-                                    <div class="invalid-feedback">{{ error }}</div>
-                                {% endfor %}
-                            </div>
-                        </div>
+                            {{ form.nombre.label(class="form-label") }}
 
-                        <div class="mb-4">
-                            {{ form.direccion.label(class="form-label fw-semibold") }}
-                            {{ form.direccion(class="form-control" + (" is-invalid" if form.direccion.errors else ""), style="border-radius: 10px; padding: 12px 18px;") }}
-                            {% for error in form.direccion.errors %}
-                                <div class="invalid-feedback">{{ error }}</div>
+                            {{ form.nombre(
+                                class="form-control",
+                                placeholder="Ingrese el nombre del proveedor"
+                            ) }}
+
+                            {% for error in form.nombre.errors %}
+
+                                <div class="text-danger">
+                                    {{ error }}
+                                </div>
+
                             {% endfor %}
+
                         </div>
 
-                        <div class="d-flex gap-3">
-                            <button type="submit" class="btn btn-primary flex-grow-1" style="background: linear-gradient(135deg, #b45309, #f59e0b); border: none; border-radius: 50px; padding: 14px; font-weight: 600; font-size: 1.05rem; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);">
-                                💾 Guardar Proveedor
-                            </button>
-                            <a href="{{ url_for('proveedores') }}" class="btn btn-secondary flex-grow-1" style="border-radius: 50px; padding: 14px; font-weight: 600;">
-                                ← Cancelar
-                            </a>
+
+                        <!-- TELÉFONO -->
+                        <div class="mb-3">
+
+                            {{ form.telefono.label(class="form-label") }}
+
+                            {{ form.telefono(
+                                class="form-control",
+                                placeholder="Ingrese el teléfono"
+                            ) }}
+
+                            {% for error in form.telefono.errors %}
+
+                                <div class="text-danger">
+                                    {{ error }}
+                                </div>
+
+                            {% endfor %}
+
                         </div>
+
+
+                        <!-- CORREO -->
+                        <div class="mb-3">
+
+                            {{ form.correo.label(class="form-label") }}
+
+                            {{ form.correo(
+                                class="form-control",
+                                placeholder="Ingrese el correo electrónico"
+                            ) }}
+
+                            {% for error in form.correo.errors %}
+
+                                <div class="text-danger">
+                                    {{ error }}
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+
+                        <!-- BOTONES -->
+                        <div class="d-flex gap-2">
+
+                            {{ form.submit(
+                                class="btn btn-primary"
+                            ) }}
+
+                            <a href="{{ url_for('proveedores') }}"
+                               class="btn btn-secondary">
+                                Cancelar
+                            </a>
+
+                        </div>
+
                     </form>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
 
 {% endblock %}

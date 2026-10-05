@@ -1,3 +1,2 @@
-from .producto_form import ProductoForm
-# Importa aquí los demás formularios si los necesitas en app.py
-# from .cliente_form import ClienteForm
+# conexion/__init__.py
+from .conexion import obtener_conexion

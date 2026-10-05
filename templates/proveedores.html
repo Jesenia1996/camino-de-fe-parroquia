@@ -5,72 +5,138 @@
 {% block contenido %}
 
 <div class="container py-5">
+
     <div class="d-flex justify-content-between align-items-center mb-4">
+
         <div>
-            <h2 style="color: #1e3a8a; font-weight: 700;">🏭 Proveedores</h2>
-            <p class="text-muted">Gestión de proveedores y relaciones comerciales</p>
+            <h2>Proveedores</h2>
+
+            <p>
+                Registro de proveedores de materiales y recursos
+                para la formación de servidores del altar.
+            </p>
         </div>
-        <a href="{{ url_for('nuevo_proveedor') }}" class="btn btn-primary" style="background: linear-gradient(135deg, #b45309, #f59e0b); border: none; border-radius: 50px; padding: 12px 30px; font-weight: 600; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);">
-            ➕ Nuevo Proveedor
+
+        <a href="{{ url_for('nuevo_proveedor') }}"
+           class="btn btn-primary">
+            + Agregar Proveedor
         </a>
+
     </div>
 
+
+    <!-- MENSAJES -->
     {% with messages = get_flashed_messages(with_categories=true) %}
+
         {% if messages %}
+
             {% for category, message in messages %}
-                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+
+                <div class="alert alert-{{ category }} alert-dismissible fade show"
+                     role="alert">
+
                     {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert">
+                    </button>
+
                 </div>
+
             {% endfor %}
+
         {% endif %}
+
     {% endwith %}
 
-    <div class="card shadow-lg border-0" style="border-radius: 20px; overflow: hidden;">
-        <div class="card-body p-4">
-            {% if proveedores %}
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead style="background: linear-gradient(135deg, #b45309, #f59e0b); color: white;">
-                        <tr>
-                            <th style="padding: 18px;">Empresa</th>
-                            <th style="padding: 18px;">RUC</th>
-                            <th style="padding: 18px;">Contacto</th>
-                            <th style="padding: 18px;">Teléfono</th>
-                            <th style="padding: 18px;">Email</th>
-                            <th style="padding: 18px;">País</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for proveedor in proveedores %}
-                        <tr>
-                            <td style="padding: 15px;"><strong>{{ proveedor.nombre_empresa }}</strong></td>
-                            <td style="padding: 15px;">{{ proveedor.ruc }}</td>
-                            <td style="padding: 15px;">{{ proveedor.contacto }}</td>
-                            <td style="padding: 15px;">{{ proveedor.telefono }}</td>
-                            <td style="padding: 15px;">{{ proveedor.email }}</td>
-                            <td style="padding: 15px;">
-                                <span class="badge" style="background: linear-gradient(135deg, #b45309, #f59e0b); font-size: 0.9rem; padding: 8px 16px;">
-                                    {{ proveedor.pais }}
-                                </span>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            {% else %}
-            <div class="text-center py-5">
-                <div style="font-size: 5rem; opacity: 0.3;">🏭</div>
-                <h4 class="text-muted mt-3">No hay proveedores registrados</h4>
-                <p class="text-muted">Comienza agregando tu primer proveedor</p>
-                <a href="{{ url_for('nuevo_proveedor') }}" class="btn btn-primary mt-3" style="background: linear-gradient(135deg, #b45309, #f59e0b); border: none; border-radius: 50px; padding: 12px 30px;">
-                    Agregar Primer Proveedor
-                </a>
-            </div>
-            {% endif %}
-        </div>
+
+    <!-- TABLA DE PROVEEDORES -->
+    <div class="table-responsive">
+
+        <table class="table table-striped table-bordered align-middle">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Acciones</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for proveedor in proveedores %}
+
+                <tr>
+
+                    <td>
+                        {{ proveedor['id'] }}
+                    </td>
+
+                    <td>
+                        {{ proveedor['nombre'] }}
+                    </td>
+
+                    <td>
+                        {{ proveedor['telefono'] or 'No registrado' }}
+                    </td>
+
+                    <td>
+                        {{ proveedor['correo'] or 'No registrado' }}
+                    </td>
+
+                    <td>
+
+                        <a href="{{ url_for('editar_proveedor', id=proveedor['id']) }}"
+                           class="btn btn-sm btn-warning">
+                            Editar
+                        </a>
+
+
+                        <form method="POST"
+                              action="{{ url_for('eliminar_proveedor', id=proveedor['id']) }}"
+                              style="display:inline;"
+                              onsubmit="return confirm('¿Estás seguro de eliminar este proveedor?');">
+
+                            <button type="submit"
+                                    class="btn btn-sm btn-danger">
+                                Eliminar
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+
+                {% else %}
+
+                <tr>
+
+                    <td colspan="5"
+                        class="text-center py-4">
+
+                        No existen proveedores registrados todavía.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
     </div>
+
 </div>
 
 {% endblock %}

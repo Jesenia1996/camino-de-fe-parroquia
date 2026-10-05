@@ -1,42 +1,147 @@
 {% extends "base.html" %}
 
+{% block title %}Clientes - Camino de Fe{% endblock %}
+
 {% block contenido %}
 
-<h2>Listado de Clientes</h2>
+<div class="container py-5">
 
-<a href="{{ url_for('nuevo_cliente') }}" class="btn btn-primary mb-3">+ Agregar Cliente</a>
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-<p>Registro de los niños y jóvenes que participan en el servicio del altar.</p>
+        <div>
+            <h2>Clientes</h2>
 
-<table class="table table-striped table-bordered">
-    <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Edad</th>
-            <th>Etapa de Formación</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>Juan Sebastián López</td>
-            <td>10 años</td>
-            <td>Iniciación</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>María Fernanda Pérez</td>
-            <td>12 años</td>
-            <td>Avanzada</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Luis Carlos Ruiz</td>
-            <td>11 años</td>
-            <td>Iniciación</td>
-        </tr>
-    </tbody>
-</table>
+            <p>
+                Registro de niños y jóvenes que participan
+                en las actividades de la parroquia.
+            </p>
+        </div>
+
+        <a href="{{ url_for('nuevo_cliente') }}"
+           class="btn btn-primary">
+            + Agregar Cliente
+        </a>
+
+    </div>
+
+
+    <!-- MENSAJES -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                <div class="alert alert-{{ category }} alert-dismissible fade show"
+                     role="alert">
+
+                    {{ message }}
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert">
+                    </button>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- TABLA DE CLIENTES -->
+    <div class="table-responsive">
+
+        <table class="table table-striped table-bordered align-middle">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Cédula</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Acciones</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for cliente in clientes %}
+
+                <tr>
+
+                    <td>
+                        {{ cliente['id'] }}
+                    </td>
+
+                    <td>
+                        {{ cliente['nombre'] }}
+                    </td>
+
+                    <td>
+                        {{ cliente['cedula'] or 'No registrado' }}
+                    </td>
+
+                    <td>
+                        {{ cliente['telefono'] or 'No registrado' }}
+                    </td>
+
+                    <td>
+                        {{ cliente['correo'] or 'No registrado' }}
+                    </td>
+
+                    <td>
+
+                        <a href="{{ url_for('editar_cliente', id=cliente['id']) }}"
+                           class="btn btn-sm btn-warning">
+                            Editar
+                        </a>
+
+
+                        <form method="POST"
+                              action="{{ url_for('eliminar_cliente', id=cliente['id']) }}"
+                              style="display:inline;"
+                              onsubmit="return confirm('¿Estás seguro de eliminar este cliente?');">
+
+                            <button type="submit"
+                                    class="btn btn-sm btn-danger">
+                                Eliminar
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+
+                {% else %}
+
+                <tr>
+
+                    <td colspan="6"
+                        class="text-center py-4">
+
+                        No existen clientes registrados todavía.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
 
 {% endblock %}
