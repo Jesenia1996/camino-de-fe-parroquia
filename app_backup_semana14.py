@@ -1,282 +1,26 @@
-# IMPORTANCIONES
+# ==========================================================
+# PROYECTO INTEGRADOR - CAMINO DE FE
+# Semana 13: Migración a MySQL con CRUD completo
+# ==========================================================
 
 from flask import Flask, render_template, redirect, url_for, flash
-from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-from werkzeug.security import generate_password_hash, check_password_hash
 
-# FORMS
 from forms.producto_form import ProductoForm
 from forms.cliente_form import ClienteForm
 from forms.proveedor_form import ProveedorForm
 from forms.facturacion_form import FacturacionForm
-from forms.login_form import LoginForm
-from forms.usuario_form import UsuarioForm
 
-#CONEXION MODELO
 from conexion.conexion import obtener_conexion
-from models import Usuario
 
-# APLICACIÓN 
+
+# ==========================================================
+# CONFIGURACIÓN DE FLASK
+# ==========================================================
+
 app = Flask(__name__)
 
 app.secret_key = "camino_de_fe_2026"
 
-
-# FLASK-LOGIN
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = "login"
-
-
-# PASO 4: LOAD_USER
-@login_manager.user_loader
-def load_user(user_id):
-
-    conexion = obtener_conexion()
-
-    if conexion is None:
-        return None
-
-    try:
-        cursor = conexion.cursor()
-
-        cursor.execute(
-            "SELECT id, usuario, password FROM usuarios WHERE id = %s",
-            (user_id,)
-        )
-
-        datos = cursor.fetchone()
-
-        if datos:
-            return Usuario(
-                datos["id"],
-                datos["usuario"],
-                datos["password"]
-            )
-
-        return None
-
-    except Exception as e:
-        print("Error al cargar usuario:", e)
-        return None
-
-    finally:
-        conexion.close()
-
-# ==========================================================
-# REGISTRO DE USUARIOS
-# ==========================================================
-
-@app.route("/registro", methods=["GET", "POST"])
-def registro():
-
-    # Si ya inició sesión, no necesita registrarse
-    if current_user.is_authenticated:
-        return redirect(url_for("dashboard"))
-
-    form = UsuarioForm()
-
-    if form.validate_on_submit():
-
-        conexion = obtener_conexion()
-
-        if conexion is None:
-
-            flash(
-                "No se pudo conectar con MySQL.",
-                "danger"
-            )
-
-            return render_template(
-                "registro.html",
-                form=form
-            )
-
-        try:
-
-            with conexion.cursor() as cursor:
-
-                # Verificar si el usuario ya existe
-                cursor.execute(
-                    "SELECT id FROM usuarios WHERE usuario = %s",
-                    (form.usuario.data,)
-                )
-
-                usuario_existente = cursor.fetchone()
-
-                if usuario_existente:
-
-                    flash(
-                        "El usuario ya existe. Elija otro nombre.",
-                        "warning"
-                    )
-
-                    return render_template(
-                        "registro.html",
-                        form=form
-                    )
-
-                # Crear hash seguro de la contraseña
-                password_hash = generate_password_hash(
-                    form.password.data
-                )
-
-                # Guardar usuario en MySQL
-                cursor.execute("""
-                    INSERT INTO usuarios
-                    (usuario, password)
-                    VALUES (%s, %s)
-                """, (
-                    form.usuario.data,
-                    password_hash
-                ))
-
-            conexion.commit()
-
-            flash(
-                "Usuario registrado correctamente. Ahora puede iniciar sesión.",
-                "success"
-            )
-
-            return redirect(url_for("login"))
-
-        except Exception as e:
-
-            conexion.rollback()
-
-            print("Error al registrar usuario:", e)
-
-            flash(
-                "No se pudo registrar el usuario.",
-                "danger"
-            )
-
-        finally:
-
-            conexion.close()
-
-    return render_template(
-        "registro.html",
-        form=form
-    )
-
-# ==========================================================
-# LOGIN
-# ==========================================================
-
-@app.route("/login", methods=["GET", "POST"])
-def login():
-
-    # Si ya inició sesión, ir directamente al dashboard
-    if current_user.is_authenticated:
-        return redirect(url_for("dashboard"))
-
-    form = LoginForm()
-
-    if form.validate_on_submit():
-
-        conexion = obtener_conexion()
-
-        if conexion is None:
-
-            flash(
-                "No se pudo conectar con MySQL.",
-                "danger"
-            )
-
-            return render_template(
-                "login.html",
-                form=form
-            )
-
-        try:
-
-            with conexion.cursor() as cursor:
-
-                cursor.execute("""
-                    SELECT id, usuario, password
-                    FROM usuarios
-                    WHERE usuario = %s
-                """, (
-                    form.usuario.data,
-                ))
-
-                datos = cursor.fetchone()
-
-            # Verificar usuario y contraseña
-            if datos and check_password_hash(
-                datos["password"],
-                form.password.data
-            ):
-
-                usuario = Usuario(
-                    datos["id"],
-                    datos["usuario"],
-                    datos["password"]
-                )
-
-                login_user(usuario)
-
-                flash(
-                    "Inicio de sesión correcto.",
-                    "success"
-                )
-
-                return redirect(url_for("dashboard"))
-
-            else:
-
-                flash(
-                    "Usuario o contraseña incorrectos.",
-                    "danger"
-                )
-
-        except Exception as e:
-
-            print("Error al iniciar sesión:", e)
-
-            flash(
-                "Ocurrió un error al iniciar sesión.",
-                "danger"
-            )
-
-        finally:
-
-            conexion.close()
-
-    return render_template(
-        "login.html",
-        form=form
-    )
-
-# ==========================================================
-# DASHBOARD
-# ==========================================================
-
-@app.route("/dashboard")
-@login_required
-def dashboard():
-
-    return render_template(
-        "dashboard.html"
-    )
-
-# ==========================================================
-# CERRAR SESIÓN
-# ==========================================================
-
-@app.route("/logout")
-@login_required
-def logout():
-
-    logout_user()
-
-    flash(
-        "Sesión cerrada correctamente.",
-        "success"
-    )
-
-    return redirect(url_for("login"))
 
 # ==========================================================
 # INICIO
@@ -292,7 +36,6 @@ def index():
 # ==========================================================
 
 @app.route("/productos")
-@login_required
 def productos():
 
     conexion = obtener_conexion()
@@ -339,7 +82,6 @@ def productos():
 # ----------------------------------------------------------
 
 @app.route("/productos/nuevo", methods=["GET", "POST"])
-@login_required
 def nuevo_producto():
 
     form = ProductoForm()
@@ -407,7 +149,6 @@ def nuevo_producto():
 # ----------------------------------------------------------
 
 @app.route("/productos/editar/<int:id>", methods=["GET", "POST"])
-@login_required
 def editar_producto(id):
 
     conexion = obtener_conexion()
@@ -501,7 +242,6 @@ def editar_producto(id):
 # ----------------------------------------------------------
 
 @app.route("/productos/eliminar/<int:id>", methods=["POST"])
-@login_required
 def eliminar_producto(id):
 
     conexion = obtener_conexion()
@@ -551,7 +291,6 @@ def eliminar_producto(id):
 # ==========================================================
 
 @app.route("/clientes")
-@login_required
 def clientes():
 
     conexion = obtener_conexion()
@@ -606,7 +345,6 @@ def clientes():
 # ----------------------------------------------------------
 
 @app.route("/clientes/nuevo", methods=["GET", "POST"])
-@login_required
 def nuevo_cliente():
 
     form = ClienteForm()
@@ -674,7 +412,6 @@ def nuevo_cliente():
 # ----------------------------------------------------------
 
 @app.route("/clientes/editar/<int:id>", methods=["GET", "POST"])
-@login_required
 def editar_cliente(id):
 
     conexion = obtener_conexion()
@@ -768,9 +505,7 @@ def editar_cliente(id):
 # ----------------------------------------------------------
 
 @app.route("/clientes/eliminar/<int:id>", methods=["POST"])
-@login_required
 def eliminar_cliente(id):
-
     conexion = obtener_conexion()
 
     try:
@@ -817,7 +552,6 @@ def eliminar_cliente(id):
 # ==========================================================
 
 @app.route("/proveedores")
-@login_required
 def proveedores():
 
     conexion = obtener_conexion()
@@ -872,7 +606,6 @@ def proveedores():
 # ----------------------------------------------------------
 
 @app.route("/proveedores/nuevo", methods=["GET", "POST"])
-@login_required
 def nuevo_proveedor():
 
     form = ProveedorForm()
@@ -939,7 +672,6 @@ def nuevo_proveedor():
 # ----------------------------------------------------------
 
 @app.route("/proveedores/editar/<int:id>", methods=["GET", "POST"])
-@login_required
 def editar_proveedor(id):
 
     conexion = obtener_conexion()
@@ -1030,7 +762,6 @@ def editar_proveedor(id):
 # ----------------------------------------------------------
 
 @app.route("/proveedores/eliminar/<int:id>", methods=["POST"])
-@login_required
 def eliminar_proveedor(id):
 
     conexion = obtener_conexion()
@@ -1080,7 +811,6 @@ def eliminar_proveedor(id):
 # ==========================================================
 
 @app.route("/facturacion")
-@login_required
 def facturacion():
 
     conexion = obtener_conexion()
@@ -1142,7 +872,6 @@ def facturacion():
 # ----------------------------------------------------------
 
 @app.route("/facturacion/nuevo", methods=["GET", "POST"])
-@login_required
 def nueva_factura():
 
     form = FacturacionForm()
@@ -1236,7 +965,6 @@ def nueva_factura():
 # ----------------------------------------------------------
 
 @app.route("/facturacion/eliminar/<int:id>", methods=["POST"])
-@login_required
 def eliminar_factura(id):
 
     conexion = obtener_conexion()

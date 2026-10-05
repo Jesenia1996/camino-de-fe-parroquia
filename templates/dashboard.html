@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<div class="container mt-5">
+
+    <div class="text-center mb-4">
+
+        <h1>Panel de administración</h1>
+
+        <p class="lead">
+            Bienvenido,
+            <strong>{{ current_user.usuario }}</strong>
+        </p>
+
+        <p>
+            Has iniciado sesión correctamente en
+            <strong>Camino de Fe en mi Parroquia</strong>.
+        </p>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        <!-- PRODUCTOS -->
+        <div class="col-md-3">
+
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h4>Productos</h4>
+
+                    <p>
+                        Administrar productos registrados.
+                    </p>
+
+                    <a
+                        href="{{ url_for('productos') }}"
+                        class="btn btn-primary"
+                    >
+                        Ver productos
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CLIENTES -->
+        <div class="col-md-3">
+
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h4>Clientes</h4>
+
+                    <p>
+                        Administrar clientes registrados.
+                    </p>
+
+                    <a
+                        href="{{ url_for('clientes') }}"
+                        class="btn btn-primary"
+                    >
+                        Ver clientes
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROVEEDORES -->
+        <div class="col-md-3">
+
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h4>Proveedores</h4>
+
+                    <p>
+                        Administrar proveedores registrados.
+                    </p>
+
+                    <a
+                        href="{{ url_for('proveedores') }}"
+                        class="btn btn-primary"
+                    >
+                        Ver proveedores
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FACTURACIÓN -->
+        <div class="col-md-3">
+
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h4>Facturación</h4>
+
+                    <p>
+                        Administrar facturas registradas.
+                    </p>
+
+                    <a
+                        href="{{ url_for('facturacion') }}"
+                        class="btn btn-primary"
+                    >
+                        Ver facturación
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CERRAR SESIÓN -->
+
+    <div class="text-center mt-5">
+
+        <a
+            href="{{ url_for('logout') }}"
+            class="btn btn-danger"
+        >
+            Cerrar sesión
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
